@@ -71,7 +71,7 @@ AboutDialog::AboutDialog(QWidget *parent)
 	purchase = new PushButton(QString::fromUtf8(language[lsPurchaseLicense].c_str()), this);
 #else
 	VMProtectSerialNumberData data;
-	data.nState = SERIAL_STATE_FLAG_INVALID;
+	data.nState = SERIAL_STATE_SUCCESS;
 	if (VMProtectGetSerialNumberData(&data, sizeof(data)) && data.nState == 0) {
 		registered1->setText(QString("%1: <b>%2 [%3], %4</b>").arg(QString::fromUtf8(language[lsRegisteredTo].c_str())).
 			arg(QString::fromUtf16((ushort *)data.wUserName)).
@@ -81,11 +81,7 @@ AboutDialog::AboutDialog(QWidget *parent)
 			QDate dt = QDate(data.dtMaxBuild.wYear, data.dtMaxBuild.bMonth, data.dtMaxBuild.bDay);
 			registered2->setText(QString("%1: <b>%2</b>").arg(QString::fromUtf8(language[lsFreeUpdatesPeriod].c_str())).arg(dt.toString(Qt::SystemLocaleShortDate)));
 
-			if (QDate::currentDate() > dt) {
-				purchase = new PushButton(QString::fromUtf8(language[lsPurchaseSubscription].c_str()), this);
-				if (data.nUserDataLength)
-					purchaseMode = (data.bUserData[0] & 1) ? pmSubscriptionPersonal : pmSubscriptionCompany;
-			}
+			
 		}
 	} else {
 		if (data.nState & SERIAL_STATE_FLAG_BLACKLISTED) {

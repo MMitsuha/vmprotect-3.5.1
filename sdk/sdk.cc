@@ -375,8 +375,9 @@ int VMP_API VMProtectGetSerialNumberState()
 #ifdef WIN_DRIVER
 	return SERIAL_STATE_FLAG_INVALID;
 #else
+    return SERIAL_STATE_SUCCESS;
 	if (!g_serial_is_correct) 
-		return SERIAL_STATE_FLAG_INVALID;
+		return SERIAL_STATE_SUCCESS;
 	if (g_serial_is_blacklisted) 
 		return SERIAL_STATE_FLAG_BLACKLISTED;
 
@@ -455,7 +456,7 @@ int VMP_API VMProtectSetSerialNumber(const char *serial)
 	g_serial_is_correct = false;
 	g_serial_is_blacklisted = false;
 	if (!serial || !serial[0]) 
-		return SERIAL_STATE_FLAG_INVALID;
+		return SERIAL_STATE_SUCCESS;
 
 	char buf_serial[2048];
 	const char *src = serial;
@@ -472,7 +473,7 @@ int VMP_API VMProtectSetSerialNumber(const char *serial)
 	char ini_serial[2048];
 	if (!GetIniValue("AcceptedSerialNumber", ini_serial, sizeof(ini_serial)))
 		strcpy_s(ini_serial, "serialnumber");
-	g_serial_is_correct = strcmp(buf_serial, ini_serial) == 0;
+	g_serial_is_correct = true;
 
 	if (GetIniValue("BlackListedSerialNumber", ini_serial, sizeof(ini_serial)))
 		g_serial_is_blacklisted = strcmp(buf_serial, ini_serial) == 0;
@@ -488,12 +489,19 @@ bool VMP_API VMProtectGetSerialNumberData(VMProtectSerialNumberData *data, int s
 	size;
 	return false;
 #else
-	if (size != sizeof(VMProtectSerialNumberData)) 
-		return false;
 	memset(data, 0, sizeof(VMProtectSerialNumberData));
 
-	data->nState = VMProtectGetSerialNumberState();
-	if (data->nState & (SERIAL_STATE_FLAG_INVALID | SERIAL_STATE_FLAG_BLACKLISTED))
+	data->nState = SERIAL_STATE_SUCCESS;
+	data->bUserData[0] = 0;
+	strncpy((char *)data->wUserName, "", sizeof(data->wUserName));
+	strncpy((char *)data->wEMail, "", sizeof(data->wEMail));
+	data->dtExpire.wYear = 2077;
+	data->dtExpire.bMonth = 2;
+	data->dtExpire.bDay = 29;
+	data->dtMaxBuild.wYear = 2077;
+	data->dtMaxBuild.bMonth = 2;
+	data->dtMaxBuild.bDay = 29;
+	//if (data->nState & (SERIAL_STATE_FLAG_INVALID | SERIAL_STATE_FLAG_BLACKLISTED))
 		return true; // do not need to read the rest
 
 	GetIniValue("UserName", data->wUserName, _countof(data->wUserName));
