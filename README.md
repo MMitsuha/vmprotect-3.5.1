@@ -14,3 +14,6 @@ cd ../VMProtect && make
 ```
 
 5. The generated files will be in `bin/64`
+6. Enjoy it
+
+![mac.jpg](https://github.com/61bcdefg/vmprotect-3.5.1/blob/master/mac.jpg?raw=true)
