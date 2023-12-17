@@ -7,15 +7,15 @@ BIN_TARGET    := $(BIN_DIR)/$(TARGET)
 CC            := clang
 CXX           := clang++
 LINK          := clang++
-CFLAGS        := $(CFLAGS) -pipe -fvisibility=hidden -mmacosx-version-min=10.7 -DNDEBUG -O3 -gdwarf-2 -arch $(ARCH) -Wall -W -fPIC $(DEFINES)
+CFLAGS        := $(CFLAGS) -pipe -fvisibility=hidden -mmacosx-version-min=10.13 -DNDEBUG -O3 -gdwarf-2 -arch $(ARCH) -Wall -W -fPIC $(DEFINES) -Wno-error=deprecated-declarations -Wno-error=unused-but-set-variable -DULTIMATE -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
 CXXFLAGS      := $(CXXFLAGS) $(CFLAGS) -std=c++11 -stdlib=libc++ -fvisibility-inlines-hidden -fno-stack-protector -fno-builtin -Wno-reorder -Wno-switch -Wno-unused-parameter -Wno-unused-variable -Werror
-LFLAGS        := $(LFLAGS) -std=c++11 -stdlib=libc++ -headerpad_max_install_names -mmacosx-version-min=10.7 -arch $(ARCH) -single_module
+LFLAGS        := $(LFLAGS) -std=c++11 -stdlib=libc++ -headerpad_max_install_names -mmacosx-version-min=10.13 -arch $(ARCH) -single_module
 SDK_LIBS      := -framework CoreServices -framework SystemConfiguration
 SLIBFLAGS     := -static -arch_only $(ARCH)
 COPY_FILE     := cp -f
 COPY_DIR      := cp -f -R
 
-export MACOSX_DEPLOYMENT_TARGET = 10.7
+export MACOSX_DEPLOYMENT_TARGET = 10.13
 
 DEL_FILE      := rm -f
 DEL_DIR       := rm -rf --

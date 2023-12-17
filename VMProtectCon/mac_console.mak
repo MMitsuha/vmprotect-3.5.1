@@ -1,4 +1,4 @@
-SOURCES := console.cc main.cc
+SOURCES := console.cc main.cc ../sdk/sdk.cc
 
 
 PROJECT       := vmprotect_con
@@ -10,8 +10,8 @@ PCH_DIR       := $(TMP_DIR)/$(PROJECT).gch
 DEFINES       := $(CONFIG) -DTIXML_USE_STL
 LFLAGS        :=
 LIBS          :=  -framework CoreServices -framework Security
-OBJCOMP       := ../bin/$(ARCH_DIR)/invariant_core.a ../bin/$(ARCH_DIR)/$(CFG_DIR)/core.a /usr/local/opt/libffi/lib/libffi.a
-DYLIBS        := ../bin/libVMProtectSDK.dylib
+OBJCOMP       := ../bin/$(ARCH_DIR)/invariant_core.a ../bin/$(ARCH_DIR)/$(CFG_DIR)/core.a libffi.a
+DYLIBS        :=
 PCH_DIR       := $(TMP_DIR)
 
 include ../mac_common.mak

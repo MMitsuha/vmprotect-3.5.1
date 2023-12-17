@@ -5,6 +5,9 @@
 #ifndef MACFILE_H
 #define MACFILE_H
 
+#include <mach-o/fat.h>
+#include "mach-o.h"
+
 class MacFile;
 class MacArchitecture;
 class MacLoadCommandList;

@@ -1700,7 +1700,7 @@ bool Core::Compile()
 #endif
 
 	rand_seed = 0;
-	OutputDebugStringA(string_format("rand_seed:%d\n", rand_seed).c_str());
+	//OutputDebugStringA(string_format("rand_seed:%d\n", rand_seed).c_str());
 
 	srand(rand_seed);
 	

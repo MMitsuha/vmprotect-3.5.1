@@ -104,21 +104,21 @@ PCH_DIR              := $(TMP_DIR_CORE_INVAR)
 
 PCH_C                := $(TMP_DIR_CORE_INVAR_C)/precompiled_c.h.gch
 
-$(PCH_C): precompiled_c.h $(TMP_DIR_CORE_INVAR_C)/.sentinel
-	$(CC) $(CFLAGS) $(INCFLAGS) -x c-header precompiled_c.c -o $(PCH_C)
-
 include ../../mac_common.mak
 
-clean: 
-	-$(DEL_FILE) $(abspath $(OBJECTS))
-	-$(DEL_FILE) $(PCH_CPP) $(PCH_C)
-	-$(DEL_FILE) $(BIN_TARGET)
+$(BIN_TARGET): $(OBJECTS) $(BIN_DIR)/.sentinel $(OBJCOMP)
+	libtool $(SLIBFLAGS) -o $(BIN_TARGET) $(abspath $(OBJECTS)) $(OBJCOMP)
 
-$(TMP_DIR_CORE_INVAR)/%.o: % $(PCH_CPP) $(TMP_DIR_CORE_INVAR)/%/../.sentinel
+$(PCH_C): precompiled_c.h $(TMP_DIR_CORE_INVAR_C)/.sentinel
+	$(CC) $(CFLAGS) $(INCFLAGS) -x c-header precompiled_c.c -o $(PCH_C)
+		
+$(TMP_DIR_CORE_INVAR)/%.o: % $(PCH_CPP) $(TMP_DIR_CORE_INVAR_C)/%/../.sentinel
 	$(CXX) -c -include-pch $(PCH_CPP) $(CXXFLAGS) $(INCFLAGS) -o $(abspath $@) $(abspath $<)
 
 $(TMP_DIR_CORE_INVAR_C)/%.o: % $(PCH_C) $(TMP_DIR_CORE_INVAR_C)/%/../.sentinel
 	$(CC) -c -include-pch $(PCH_C) $(CFLAGS) $(INCFLAGS) -o $(abspath $@) $(abspath $<)
 
-$(BIN_TARGET): $(OBJECTS) $(BIN_DIR)/.sentinel $(OBJCOMP)
-	libtool $(SLIBFLAGS) -o $(BIN_TARGET) $(abspath $(OBJECTS)) $(OBJCOMP)
+clean: 
+	-$(DEL_FILE) $(abspath $(OBJECTS))
+	-$(DEL_FILE) $(PCH_CPP) $(PCH_C)
+	-$(DEL_FILE) $(BIN_TARGET)

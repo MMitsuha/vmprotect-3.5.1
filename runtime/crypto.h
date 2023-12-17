@@ -71,7 +71,7 @@ inline uint64_t _rotr64(uint64_t value, int shift)
 {
 	return (value >> shift) | (value << (sizeof(value) * 8 - shift));
 }
-
+/*
 inline uint64_t __rdtsc()
 {
 	uint32_t hi, lo;
@@ -80,7 +80,7 @@ inline uint64_t __rdtsc()
 							);
 	return static_cast<uint64_t>(lo) | static_cast<uint64_t>(hi) << 32;
 }
-
+*/
 
 inline void __cpuid(int regs[4], uint32_t value)
 {
@@ -101,6 +101,7 @@ inline void __movsb(void *d, const void *s, size_t n) {
 		: "memory");
 }
 
+/*
 #ifdef __APPLE__
 inline uint16_t __builtin_bswap16(uint16_t value)
 {
@@ -110,7 +111,7 @@ inline uint16_t __builtin_bswap16(uint16_t value)
 	return value;
 }
 #endif
-
+*/
 #else
 #define _rotl32 _lrotl
 #define _rotr32 _lrotr
@@ -159,7 +160,7 @@ struct RC5Key {
 	uint32_t P;
 	uint32_t Q;
 #endif
-	RC5Key() {} //-V730 ìóñîð òîæå ãîäèòñÿ
+	RC5Key() {} //-V730 Ð¼ÑƒÑÐ¾Ñ€ Ñ‚Ð¾Ð¶Ðµ Ð³Ð¾Ð´Ð¸Ñ‚ÑÑ
 #ifdef RUNTIME
 	RC5Key(const uint8_t *key)
 	{

@@ -15,10 +15,7 @@ build.log
 *.sys
 vmprotect.opensdf
 vmprotect.sdf
-core/version.h
 *.aps
-core/lang.tmp
-core/lang.inc
 *.log
 /iss/Output
 *.tmp
@@ -57,12 +54,8 @@ third-party/taggant/java_pkiclient/portecle-1.7/
 utils/ipn_sqlclr/bin/
 unit-tests/ipn_sqlclr.Test/obj/
 utils/ipn_tool/bin/
-core/lang_def.inc
-core/lang_enum.inc
-core/lang_info.inc
 examples/dotnet/Debug/
 mac_commond.mak
-VMProtect/resources.cc
 VMProtect/mac_guid.mak
 VMProtect/mac_gui64_debug.mak
 iss/keygen/Project1.dproj.local

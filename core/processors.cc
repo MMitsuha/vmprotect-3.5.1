@@ -6,7 +6,7 @@
 #include "core.h"
 #include "processors.h"
 #include "lang.h"
-#include <intrin.h>
+//#include <intrin.h>
 
 /**
  * AddressRange

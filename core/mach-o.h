@@ -1874,6 +1874,9 @@ struct version_min_command {
 #define FAT_MAGIC	0xcafebabe
 #define FAT_CIGAM	0xbebafeca	/* NXSwapLong(FAT_MAGIC) */
 
+#ifdef __APPLE__
+#else
+
 struct fat_header {
 	uint32_t	magic;		/* FAT_MAGIC */
 	uint32_t	nfat_arch;	/* number of structs that follow */
@@ -1886,6 +1889,8 @@ struct fat_arch {
 	uint32_t	size;		/* size of this object file */
 	uint32_t	align;		/* alignment as a power of 2 */
 };
+
+#endif
 
 #define BIND_TYPE_OVERRIDE_OF_WEAKDEF_IN_DYLIB 0
 
@@ -2204,6 +2209,9 @@ enum {
 #define LC_NOTE 0x31 /* arbitrary data included within a Mach-O file */
 #define LC_BUILD_VERSION 0x32 /* build for platform min OS version */
 
+#ifdef __APPLE__
+#else
+
 struct build_version_command {
 	uint32_t	cmd;		/* LC_BUILD_VERSION */
 	uint32_t	cmdsize;	/* sizeof(struct build_version_command) plus */
@@ -2218,6 +2226,7 @@ struct build_tool_version {
 	uint32_t	tool;		/* enum for the tool */
 	uint32_t	version;	/* version number of the tool */
 };
+#endif
 
 #define DYLD_MACOSX_VERSION_10_12		0x000A0C00
 

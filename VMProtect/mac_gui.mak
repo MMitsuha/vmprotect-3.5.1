@@ -1,7 +1,7 @@
 SOURCES := about_dialog.cc export_key_pair_dialog.cc function_dialog.cc import_license_dialog.cc license_dialog.cc main.cc mainwindow.cc message_dialog.cc remotecontrol.cc template_save_dialog.cc templates_window.cc \
  models.cc progress_dialog.cc property_editor.cc resources.cc settings_dialog.cc watermark_dialog.cc watermarks_window.cc widgets.cc help_browser.cc \
  ../third-party/scintilla/ScintillaQt.cc ../third-party/scintilla/ScintillaEditBase.cc \
- ../third-party/scintilla/PlatQt.cc
+ ../third-party/scintilla/PlatQt.cc ../sdk/sdk.cc
 
 MOC_HEADERS := application.h mainwindow.h property_editor.h widgets.h models.h about_dialog.h watermark_dialog.h message_dialog.h settings_dialog.h watermarks_window.h remotecontrol.h \
  export_key_pair_dialog.h function_dialog.h import_license_dialog.h license_dialog.h progress_dialog.h help_browser.h template_save_dialog.h templates_window.h
@@ -10,7 +10,7 @@ SC_MOC_HEADERS := ScintillaQt.h ScintillaEditBase.h
 
 PROJECT       := vmprotect_gui
 TARGET        := $(PROJECT)
-QT_DIR        := /Users/vano/Qt/5.6/clang_64
+QT_DIR        := /Users/user/Qt/5.15.2/clang_64
 BIN_DIR       := ../bin/$(ARCH_DIR)/$(CFG_DIR)
 APP_NAME      := vmprotect_gui.app
 APP_DIR       := $(BIN_DIR)/$(APP_NAME)
@@ -19,10 +19,10 @@ TMP_ARCH_DIR  := ../tmp/mac/gui/$(ARCH_DIR)
 TMP_DIR       := $(TMP_ARCH_DIR)/$(CFG_DIR)/$(PROJECT)
 PCH_DIR       := $(TMP_DIR)/$(PROJECT).gch
 DEFINES       := $(CONFIG) -DTIXML_USE_STL -DSCI_NAMESPACE
-LFLAGS        := -Wl,-rpath,$(QT_DIR)/lib
+LFLAGS        := -Wl,-rpath,$(QT_DIR)/lib -Wl,-rpath,@executable_path/../lib
 LIBS          := -F$(QT_DIR)/lib -framework QtGui -framework QtCore -framework CoreServices -framework QtHelp -framework Security -framework QtWidgets -framework AppKit
-OBJCOMP       := ../bin/$(ARCH_DIR)/invariant_core.a ../bin/$(ARCH_DIR)/$(CFG_DIR)/core.a /usr/local/opt/libffi/lib/libffi.a
-DYLIBS        := ../bin/$(SDK_DYLIB)
+OBJCOMP       := ../bin/$(ARCH_DIR)/invariant_core.a ../bin/$(ARCH_DIR)/$(CFG_DIR)/core.a libffi.a
+DYLIBS        :=
 PCH_DIR       := $(TMP_DIR)
 MOC_TEMPLATE  := moc/moc_
 SC_MOC_TEMPLATE  := ../VMProtect/moc/moc_

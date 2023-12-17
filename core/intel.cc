@@ -15,7 +15,7 @@
 #include "packer.h"
 #include "intel.h"
 #include "objc.h"
-#include <intrin.h>
+//#include <intrin.h>
 
 /**
  * IntelCommand
