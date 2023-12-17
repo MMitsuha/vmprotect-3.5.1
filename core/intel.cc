@@ -24553,11 +24553,8 @@ bool MacIntelLoader::Prepare(const CompileContext &ctx)
 		import = file->import_list()->item(i);
 		for (j = 0; j < import->count(); j++) {
 			import_function = import->item(j);
-			if (import_function->options() & ioFromRuntime) {
+			if (1) {
 				if (!need_convert_runtime || !import_function->is_lazy())
-					continue;
-			} else {
-				if ((import_function->options() & ioIsRelative) == 0)
 					continue;
 			}
 
@@ -24674,7 +24671,7 @@ bool MacIntelLoader::Prepare(const CompileContext &ctx)
 			import = file->import_list()->item(i);
 			for (j = 0; j < import->count(); j++) {
 				import_function = import->item(j);
-				if ((import_function->options() & ioFromRuntime) && import_function->is_lazy())
+				if ((1) && import_function->is_lazy())
 					jmp_import_list.push_back(import_function);
 			}
 		}

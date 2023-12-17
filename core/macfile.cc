@@ -5940,6 +5940,13 @@ void MacArchitecture::Save(CompileContext &ctx)
 		}
 
 		if (loader->lazy_import_entry()) {
+			// delete S_LAZY_SYMBOL_POINTERS sections
+			for (i = section_list_->count(); i > 0; i--) {
+				MacSection *section = section_list_->item(i - 1);
+				if (section->type() == S_LAZY_SYMBOL_POINTERS)
+					delete section;
+			}
+
 			address = loader->lazy_import_entry()->address();
 			segment = segment_list_->GetSectionByAddress(address);
 			MacSection *section = section_list_->Add(segment, address, loader->lazy_import_size(), static_cast<uint32_t>(segment->physical_offset() + address - segment->address()), S_LAZY_SYMBOL_POINTERS, SECT_LAZY_SYMBOL_PTR, segment->name());
@@ -6643,12 +6650,14 @@ bool MacFile::Compile(CompileOptions &options)
 			for (i = 0; i < arch->function_list()->count(); i++) {
 				arch->function_list()->item(i)->set_from_runtime(true);
 			}
+			/*
 			for (i = 0; i < arch->import_list()->count(); i++) {
 				MacImport *import = arch->import_list()->item(i);
 				for (size_t j = 0; j < import->count(); j++) {
 					import->item(j)->include_option(ioFromRuntime);
 				}
 			}
+			*/
 		}
 	}
 
